@@ -12,6 +12,7 @@ import { AdminLayout } from '../features/admin/components/AdminLayout/AdminLayou
 import { DashboardPage } from '../features/admin/pages/DashboardPage/DashboardPage';
 import { ServicesPage } from '../features/admin/pages/ServicesPage/ServicesPage';
 import { ProjectsPage as AdminProjectsPage } from '../features/admin/pages/ProjectsPage/ProjectsPage';
+import { ReviewsPage } from '../features/admin/pages/ReviewsPage/ReviewsPage';
 
 export const router = createBrowserRouter([
     {
@@ -60,7 +61,7 @@ export const router = createBrowserRouter([
 
                     {
                         path: '/admin/reviews',
-                        element: <div>Reviews</div>,
+                        element: <ReviewsPage />,
                     },
 
                     {

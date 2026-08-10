@@ -4,7 +4,6 @@
     padding: 140px 0;
 
     background: $color-dark;
-    color: $color-white;
 
     &__container {
         max-width: $container-width;
@@ -36,7 +35,7 @@
 
             margin: 0;
 
-            color: rgba(255, 255, 255, 0.55);
+            color: rgb(255, 255, 255);
 
             font-size: 17px;
             line-height: 1.7;
