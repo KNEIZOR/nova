@@ -1,0 +1,277 @@
+@use '../../../../styles/variables' as *;
+
+.request-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    overflow-y: auto;
+
+    &__content {
+        width: 100%;
+        max-width: 700px;
+
+        background: $color-white;
+    }
+
+    &__header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        padding: 30px;
+
+        border-bottom: 1px solid $color-border;
+
+        span {
+            color: $color-accent;
+
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+        }
+
+        h2 {
+            margin: 10px 0 0;
+
+            font-size: 30px;
+            font-weight: 500;
+        }
+
+        > button {
+            width: 40px;
+            height: 40px;
+
+            border: 0;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 30px;
+        }
+    }
+
+    &__body {
+        padding: 30px;
+    }
+
+    &__client {
+        display: flex;
+        align-items: center;
+
+        gap: 15px;
+
+        padding-bottom: 30px;
+
+        border-bottom: 1px solid $color-border;
+    }
+
+    &__avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 54px;
+        height: 54px;
+
+        border-radius: 50%;
+
+        background: #ebe8e2;
+
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    &__client div:last-child {
+        display: flex;
+        flex-direction: column;
+
+        gap: 5px;
+
+        strong {
+            font-size: 17px;
+        }
+
+        a {
+            color: $color-muted;
+
+            font-size: 13px;
+        }
+    }
+
+    &__grid {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 25px;
+
+        padding: 30px 0;
+
+        border-bottom: 1px solid $color-border;
+
+        > div {
+            display: flex;
+            flex-direction: column;
+
+            gap: 7px;
+
+            span {
+                color: $color-muted;
+
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            strong {
+                font-size: 14px;
+                font-weight: 500;
+            }
+        }
+    }
+
+    &__comment {
+        padding: 30px 0;
+
+        border-bottom: 1px solid $color-border;
+
+        > span {
+            color: $color-muted;
+
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        p {
+            margin: 12px 0 0;
+
+            line-height: 1.7;
+            font-size: 14px;
+        }
+    }
+
+    &__status {
+        padding-top: 30px;
+
+        > span {
+            color: $color-muted;
+
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        > div {
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 9px 13px;
+
+            border: 1px solid $color-border;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font: inherit;
+            font-size: 11px;
+
+            transition: all $transition;
+
+            &.active,
+            &:hover {
+                border-color: $color-dark;
+
+                background: $color-dark;
+
+                color: $color-white;
+            }
+        }
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+
+        padding: 20px 30px;
+
+        border-top: 1px solid $color-border;
+
+        button {
+            padding: 11px 18px;
+
+            border: 1px solid $color-border;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font: inherit;
+            font-size: 12px;
+
+            &:last-child {
+                background: $color-dark;
+
+                color: $color-white;
+            }
+        }
+
+        .request-modal__delete {
+            border-color: #d6a1a1;
+
+            color: #9a4141;
+
+            &:hover {
+                background: #9a4141;
+
+                color: $color-white;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .request-modal {
+        align-items: flex-start;
+
+        padding: 0;
+
+        &__content {
+            min-height: 100vh;
+        }
+
+        &__header,
+        &__body {
+            padding: 22px;
+        }
+
+        &__grid {
+            grid-template-columns: 1fr;
+        }
+
+        &__footer {
+            padding: 18px 22px;
+        }
+    }
+}

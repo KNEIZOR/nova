@@ -13,6 +13,7 @@ import { DashboardPage } from '../features/admin/pages/DashboardPage/DashboardPa
 import { ServicesPage } from '../features/admin/pages/ServicesPage/ServicesPage';
 import { ProjectsPage as AdminProjectsPage } from '../features/admin/pages/ProjectsPage/ProjectsPage';
 import { ReviewsPage } from '../features/admin/pages/ReviewsPage/ReviewsPage';
+import { RequestsPage } from '../features/admin/pages/RequestsPage/RequestsPage';
 
 export const router = createBrowserRouter([
     {
@@ -66,7 +67,7 @@ export const router = createBrowserRouter([
 
                     {
                         path: '/admin/requests',
-                        element: <div>Requests</div>,
+                        element: <RequestsPage />,
                     },
                 ],
             },
