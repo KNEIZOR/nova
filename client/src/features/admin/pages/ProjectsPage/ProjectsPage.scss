@@ -302,3 +302,291 @@
         border-left: 0;
     }
 }
+
+@media (max-width: 768px) {
+    .projects-page {
+        padding: 20px 16px;
+    }
+
+    .projects-page__header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+
+        h1 {
+            font-size: 28px;
+        }
+
+        button {
+            flex-shrink: 0;
+            min-height: 42px;
+            padding: 0 14px;
+            font-size: 13px;
+        }
+    }
+
+    .projects-table {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        background: transparent;
+        border: 0;
+    }
+
+    .projects-table__head {
+        display: none;
+    }
+
+    .projects-table__row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+
+        gap: 14px;
+
+        padding: 16px;
+
+        background: #fff;
+        border: 1px solid #e8e8e5;
+        border-radius: 12px;
+
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+
+        > span:nth-child(2) {
+            grid-column: 1 / -1;
+
+            color: #777;
+            font-size: 12px;
+        }
+
+        > span:nth-child(3) {
+            font-size: 13px;
+        }
+
+        > span:nth-child(4) {
+            font-size: 13px;
+            text-align: right;
+        }
+
+        > span:nth-child(5) {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        > span:nth-child(6) {
+            display: none;
+        }
+    }
+
+    .projects-table__project {
+        min-width: 0;
+
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        grid-column: 1;
+
+        .projects-table__image {
+            width: 64px;
+            height: 64px;
+
+            flex: 0 0 64px;
+
+            overflow: hidden;
+
+            border-radius: 8px;
+
+            img {
+                display: block;
+
+                width: 100%;
+                height: 100%;
+
+                object-fit: cover;
+            }
+        }
+
+        strong {
+            display: block;
+
+            overflow: hidden;
+
+            font-size: 14px;
+            line-height: 1.35;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        small {
+            display: block;
+
+            margin-top: 4px;
+
+            color: #888;
+
+            font-size: 11px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .projects-table__actions {
+        grid-column: 1 / -1;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        gap: 8px;
+
+        padding-top: 14px;
+
+        border-top: 1px solid #eeeeeb;
+
+        button {
+            min-height: 40px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-page {
+        padding: 18px 12px;
+    }
+
+    .projects-page__header {
+        flex-direction: column;
+        gap: 14px;
+
+        button {
+            width: 100%;
+        }
+    }
+
+    .projects-table__project {
+        .projects-table__image {
+            width: 56px;
+            height: 56px;
+
+            flex-basis: 56px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-page {
+        padding: 16px;
+    }
+
+    .projects-page__header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+
+        button {
+            width: 100%;
+            min-height: 46px;
+        }
+    }
+
+    .projects-table__head {
+        display: none;
+    }
+
+    .projects-table__row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+
+        padding: 16px;
+        margin-bottom: 12px;
+
+        border-radius: 12px;
+    }
+
+    .projects-table__project {
+        min-width: 0;
+    }
+
+    .projects-table__project strong {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .projects-table__project small {
+        display: block;
+        margin-top: 4px;
+        overflow-wrap: anywhere;
+    }
+
+    .projects-table__image {
+        width: 64px;
+        height: 64px;
+        flex-shrink: 0;
+    }
+
+    // Категория
+    .projects-table__row > span:nth-child(2) {
+        grid-column: 1 / -1;
+    }
+
+    // Город
+    .projects-table__row > span:nth-child(3)::before {
+        content: 'Город: ';
+        opacity: 0.6;
+    }
+
+    // Площадь
+    .projects-table__row > span:nth-child(4)::before {
+        content: 'Площадь: ';
+        opacity: 0.6;
+    }
+
+    // Статус
+    .projects-table__row > span:nth-child(5)::before {
+        content: 'Статус: ';
+        opacity: 0.6;
+    }
+
+    // Порядок
+    .projects-table__row > span:nth-child(6)::before {
+        content: 'Порядок: ';
+        opacity: 0.6;
+    }
+
+    .projects-table__actions {
+        grid-column: 1 / -1;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+
+        button {
+            min-height: 44px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-page {
+        padding: 12px;
+    }
+
+    .projects-table__row {
+        padding: 14px;
+    }
+
+    .projects-table__actions {
+        grid-template-columns: 1fr;
+    }
+}

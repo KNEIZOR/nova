@@ -4,6 +4,12 @@ import { projectsAdminApi, type Project } from '../../api/projectsApi';
 
 import { ProjectForm } from '../../components/ProjectForm/ProjectForm';
 
+import { useToast } from '../../../../components/ui/Toast/ToastContext';
+
+import { LoadingState } from '../../../../components/ui/LoadingState/LoadingState';
+import { EmptyState } from '../../../../components/ui/EmptyState/EmptyState';
+import { ErrorState } from '../../../../components/ui/ErrorState/ErrorState';
+
 import './ProjectsPage.scss';
 
 export function ProjectsPage() {
@@ -16,6 +22,8 @@ export function ProjectsPage() {
     const [isFormOpen, setIsFormOpen] = useState(false);
 
     const [editingProject, setEditingProject] = useState<Project | null>(null);
+
+    const toast = useToast();
 
     const loadProjects = async () => {
         try {
@@ -63,8 +71,10 @@ export function ProjectsPage() {
             setProjects((current) =>
                 current.filter((item) => item.id !== project.id),
             );
+
+            toast.success('Проект успешно удалён');
         } catch (error) {
-            setError(
+            toast.error(
                 error instanceof Error
                     ? error.message
                     : 'Не удалось удалить проект',
@@ -89,6 +99,12 @@ export function ProjectsPage() {
 
         setIsFormOpen(false);
         setEditingProject(null);
+
+        toast.success(
+            editingProject
+                ? 'Проект успешно обновлён'
+                : 'Проект успешно создан',
+        );
     };
 
     return (
@@ -105,16 +121,20 @@ export function ProjectsPage() {
                 </button>
             </header>
 
-            {error && <div className="projects-page__error">{error}</div>}
-
-            {isLoading ? (
-                <div className="projects-page__loading">Загрузка...</div>
+            {error ? (
+                <ErrorState message={error} onRetry={loadProjects} />
+            ) : isLoading ? (
+                <LoadingState message="Загрузка проектов..." />
             ) : projects.length === 0 ? (
-                <div className="projects-page__empty">
-                    <h2>Проектов пока нет</h2>
-
-                    <p>Создайте первый проект, чтобы он появился здесь.</p>
-                </div>
+                <EmptyState
+                    title="Проектов пока нет"
+                    description="Создайте первый проект, чтобы он появился здесь."
+                    action={
+                        <button type="button" onClick={handleCreate}>
+                            + Добавить проект
+                        </button>
+                    }
+                />
             ) : (
                 <div className="projects-table">
                     <div className="projects-table__head">
@@ -134,6 +154,8 @@ export function ProjectsPage() {
                                     <img
                                         src={project.image}
                                         alt={project.title}
+                                        loading="lazy"
+                                        decoding="async"
                                     />
                                 </div>
 

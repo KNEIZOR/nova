@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -26,10 +26,11 @@ export function ServiceForm({ service, onSuccess, onClose }: ServiceFormProps) {
 
     const {
         register,
-        control,
         handleSubmit,
-        formState: { errors, isSubmitting },
         reset,
+        watch,
+        setValue,
+        formState: { errors, isSubmitting },
     } = useForm<ServiceFormValues>({
         resolver: zodResolver(serviceFormSchema),
 
@@ -46,10 +47,7 @@ export function ServiceForm({ service, onSuccess, onClose }: ServiceFormProps) {
         },
     });
 
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: 'features',
-    });
+    const features = watch('features');
 
     useEffect(() => {
         if (!service) {
@@ -80,6 +78,26 @@ export function ServiceForm({ service, onSuccess, onClose }: ServiceFormProps) {
             sortOrder: service.sortOrder,
         });
     }, [service, reset]);
+
+    const handleAddFeature = () => {
+        setValue('features', [...features, '']);
+    };
+
+    const handleRemoveFeature = (index: number) => {
+        setValue(
+            'features',
+            features.filter((_, featureIndex) => featureIndex !== index),
+        );
+    };
+
+    const handleFeatureChange = (index: number, value: string) => {
+        setValue(
+            'features',
+            features.map((feature, featureIndex) =>
+                featureIndex === index ? value : feature,
+            ),
+        );
+    };
 
     const onSubmit = async (values: ServiceFormValues) => {
         setServerError('');
@@ -210,6 +228,7 @@ export function ServiceForm({ service, onSuccess, onClose }: ServiceFormProps) {
                             <input
                                 id="priceFrom"
                                 type="number"
+                                inputMode="numeric"
                                 min="0"
                                 {...register('priceFrom', {
                                     setValueAs: (value) =>
@@ -228,6 +247,7 @@ export function ServiceForm({ service, onSuccess, onClose }: ServiceFormProps) {
                             <input
                                 id="sortOrder"
                                 type="number"
+                                inputMode="numeric"
                                 {...register('sortOrder', {
                                     valueAsNumber: true,
                                 })}
@@ -254,20 +274,26 @@ export function ServiceForm({ service, onSuccess, onClose }: ServiceFormProps) {
 
                                 <button
                                     type="button"
-                                    onClick={() => append('')}
+                                    onClick={handleAddFeature}
                                 >
                                     + Добавить
                                 </button>
                             </div>
 
                             <div className="service-form__features">
-                                {fields.map((field, index) => (
+                                {features.map((feature, index) => (
                                     <div
                                         className="service-form__feature"
-                                        key={field.id}
+                                        key={index}
                                     >
                                         <input
-                                            {...register(`features.${index}`)}
+                                            value={feature}
+                                            onChange={(event) =>
+                                                handleFeatureChange(
+                                                    index,
+                                                    event.target.value,
+                                                )
+                                            }
                                             placeholder={`Особенность ${
                                                 index + 1
                                             }`}
@@ -275,7 +301,9 @@ export function ServiceForm({ service, onSuccess, onClose }: ServiceFormProps) {
 
                                         <button
                                             type="button"
-                                            onClick={() => remove(index)}
+                                            onClick={() =>
+                                                handleRemoveFeature(index)
+                                            }
                                         >
                                             ×
                                         </button>

@@ -4,18 +4,24 @@ import { servicesAdminApi, type Service } from '../../api/servicesApi';
 
 import { ServiceForm } from '../../components/ServiceForm/ServiceForm';
 
+import { useToast } from '../../../../components/ui/Toast/ToastContext';
+
+import { LoadingState } from '../../../../components/ui/LoadingState/LoadingState';
+import { EmptyState } from '../../../../components/ui/EmptyState/EmptyState';
+import { ErrorState } from '../../../../components/ui/ErrorState/ErrorState';
+
 import './ServicesPage.scss';
 
 export function ServicesPage() {
     const [services, setServices] = useState<Service[]>([]);
-
     const [isLoading, setIsLoading] = useState(true);
-
     const [error, setError] = useState('');
 
     const [isFormOpen, setIsFormOpen] = useState(false);
 
     const [editingService, setEditingService] = useState<Service | null>(null);
+
+    const toast = useToast();
 
     const loadServices = async () => {
         try {
@@ -63,8 +69,10 @@ export function ServicesPage() {
             setServices((current) =>
                 current.filter((item) => item.id !== service.id),
             );
+
+            toast.success('Услуга успешно удалена');
         } catch (error) {
-            setError(
+            toast.error(
                 error instanceof Error
                     ? error.message
                     : 'Не удалось удалить услугу',
@@ -89,6 +97,12 @@ export function ServicesPage() {
 
         setIsFormOpen(false);
         setEditingService(null);
+
+        toast.success(
+            editingService
+                ? 'Услуга успешно обновлена'
+                : 'Услуга успешно создана',
+        );
     };
 
     return (
@@ -105,16 +119,20 @@ export function ServicesPage() {
                 </button>
             </header>
 
-            {error && <div className="services-page__error">{error}</div>}
-
-            {isLoading ? (
-                <div className="services-page__loading">Загрузка...</div>
+            {error ? (
+                <ErrorState message={error} onRetry={loadServices} />
+            ) : isLoading ? (
+                <LoadingState message="Загрузка услуг..." />
             ) : services.length === 0 ? (
-                <div className="services-page__empty">
-                    <h2>Услуг пока нет</h2>
-
-                    <p>Создайте первую услугу.</p>
-                </div>
+                <EmptyState
+                    title="Услуг пока нет"
+                    description="Создайте первую услугу."
+                    action={
+                        <button type="button" onClick={handleCreate}>
+                            + Добавить услугу
+                        </button>
+                    }
+                />
             ) : (
                 <div className="services-table">
                     <div className="services-table__head">

@@ -4,6 +4,12 @@ import { reviewsAdminApi, type Review } from '../../api/reviewsApi';
 
 import { ReviewForm } from '../../components/ReviewForm/ReviewForm';
 
+import { useToast } from '../../../../components/ui/Toast/ToastContext';
+
+import { LoadingState } from '../../../../components/ui/LoadingState/LoadingState';
+import { EmptyState } from '../../../../components/ui/EmptyState/EmptyState';
+import { ErrorState } from '../../../../components/ui/ErrorState/ErrorState';
+
 import './ReviewsPage.scss';
 
 export function ReviewsPage() {
@@ -16,6 +22,8 @@ export function ReviewsPage() {
     const [isFormOpen, setIsFormOpen] = useState(false);
 
     const [editingReview, setEditingReview] = useState<Review | null>(null);
+
+    const toast = useToast();
 
     const loadReviews = async () => {
         try {
@@ -63,8 +71,10 @@ export function ReviewsPage() {
             setReviews((current) =>
                 current.filter((item) => item.id !== review.id),
             );
+
+            toast.success('Отзыв успешно удалён');
         } catch (error) {
-            setError(
+            toast.error(
                 error instanceof Error
                     ? error.message
                     : 'Не удалось удалить отзыв',
@@ -85,6 +95,10 @@ export function ReviewsPage() {
 
         setIsFormOpen(false);
         setEditingReview(null);
+
+        toast.success(
+            editingReview ? 'Отзыв успешно обновлён' : 'Отзыв успешно создан',
+        );
     };
 
     return (
@@ -101,16 +115,20 @@ export function ReviewsPage() {
                 </button>
             </header>
 
-            {error && <div className="reviews-page__error">{error}</div>}
-
-            {isLoading ? (
-                <div className="reviews-page__loading">Загрузка...</div>
+            {error ? (
+                <ErrorState message={error} onRetry={loadReviews} />
+            ) : isLoading ? (
+                <LoadingState message="Загрузка отзывов..." />
             ) : reviews.length === 0 ? (
-                <div className="reviews-page__empty">
-                    <h2>Отзывов пока нет</h2>
-
-                    <p>Добавьте первый отзыв клиента.</p>
-                </div>
+                <EmptyState
+                    title="Отзывов пока нет"
+                    description="Добавьте первый отзыв клиента."
+                    action={
+                        <button type="button" onClick={handleCreate}>
+                            + Добавить отзыв
+                        </button>
+                    }
+                />
             ) : (
                 <div className="reviews-table">
                     <div className="reviews-table__head">
@@ -130,6 +148,8 @@ export function ReviewsPage() {
                                     <img
                                         src={review.image}
                                         alt={review.author}
+                                        loading="lazy"
+                                        decoding="async"
                                     />
                                 ) : (
                                     <div className="reviews-table__avatar">
@@ -146,6 +166,7 @@ export function ReviewsPage() {
 
                             <span className="reviews-table__rating">
                                 {'★'.repeat(review.rating)}
+
                                 <small>{review.rating}</small>
                             </span>
 

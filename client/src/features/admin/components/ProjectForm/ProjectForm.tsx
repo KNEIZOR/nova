@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -26,9 +26,10 @@ export function ProjectForm({ project, onSuccess, onClose }: ProjectFormProps) {
 
     const {
         register,
-        control,
         handleSubmit,
         reset,
+        watch,
+        setValue,
         formState: { errors, isSubmitting },
     } = useForm<ProjectFormValues>({
         resolver: zodResolver(projectFormSchema),
@@ -47,10 +48,7 @@ export function ProjectForm({ project, onSuccess, onClose }: ProjectFormProps) {
         },
     });
 
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: 'images',
-    });
+    const images = watch('images');
 
     useEffect(() => {
         if (!project) {
@@ -84,6 +82,26 @@ export function ProjectForm({ project, onSuccess, onClose }: ProjectFormProps) {
         });
     }, [project, reset]);
 
+    const handleAddImage = () => {
+        setValue('images', [...images, '']);
+    };
+
+    const handleRemoveImage = (index: number) => {
+        setValue(
+            'images',
+            images.filter((_, imageIndex) => imageIndex !== index),
+        );
+    };
+
+    const handleImageChange = (index: number, value: string) => {
+        setValue(
+            'images',
+            images.map((image, imageIndex) =>
+                imageIndex === index ? value : image,
+            ),
+        );
+    };
+
     const onSubmit = async (values: ProjectFormValues) => {
         setServerError('');
 
@@ -92,15 +110,10 @@ export function ProjectForm({ project, onSuccess, onClose }: ProjectFormProps) {
                 ...values,
 
                 title: values.title.trim(),
-
                 slug: values.slug.trim(),
-
                 description: values.description.trim(),
-
                 city: values.city.trim(),
-
                 category: values.category.trim(),
-
                 image: values.image.trim(),
 
                 images: values.images
@@ -282,28 +295,33 @@ export function ProjectForm({ project, onSuccess, onClose }: ProjectFormProps) {
                             <div className="project-form__images-header">
                                 <label>Дополнительные изображения</label>
 
-                                <button
-                                    type="button"
-                                    onClick={() => append('')}
-                                >
+                                <button type="button" onClick={handleAddImage}>
                                     + Добавить
                                 </button>
                             </div>
 
                             <div className="project-form__images">
-                                {fields.map((field, index) => (
+                                {images.map((image, index) => (
                                     <div
                                         className="project-form__image-row"
-                                        key={field.id}
+                                        key={index}
                                     >
                                         <input
-                                            {...register(`images.${index}`)}
+                                            value={image}
+                                            onChange={(event) =>
+                                                handleImageChange(
+                                                    index,
+                                                    event.target.value,
+                                                )
+                                            }
                                             placeholder="https://images.unsplash.com/..."
                                         />
 
                                         <button
                                             type="button"
-                                            onClick={() => remove(index)}
+                                            onClick={() =>
+                                                handleRemoveImage(index)
+                                            }
                                         >
                                             ×
                                         </button>

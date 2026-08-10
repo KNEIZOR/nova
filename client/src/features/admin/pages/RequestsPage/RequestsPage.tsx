@@ -8,6 +8,12 @@ import {
 
 import { RequestModal } from '../../components/RequestModal/RequestModal';
 
+import { useToast } from '../../../../components/ui/Toast/ToastContext';
+
+import { LoadingState } from '../../../../components/ui/LoadingState/LoadingState';
+import { EmptyState } from '../../../../components/ui/EmptyState/EmptyState';
+import { ErrorState } from '../../../../components/ui/ErrorState/ErrorState';
+
 import './RequestsPage.scss';
 
 const statusLabels: Record<RequestStatus, string> = {
@@ -37,6 +43,8 @@ export function RequestsPage() {
     const [isLoading, setIsLoading] = useState(true);
 
     const [error, setError] = useState('');
+
+    const toast = useToast();
 
     const loadRequests = async () => {
         try {
@@ -85,8 +93,10 @@ export function RequestsPage() {
             );
 
             setSelectedRequest(updated);
+
+            toast.success(`Статус заявки изменён: ${statusLabels[status]}`);
         } catch (error) {
-            setError(
+            toast.error(
                 error instanceof Error
                     ? error.message
                     : 'Не удалось изменить статус',
@@ -109,8 +119,10 @@ export function RequestsPage() {
             );
 
             setSelectedRequest(null);
+
+            toast.success('Заявка успешно удалена');
         } catch (error) {
-            setError(
+            toast.error(
                 error instanceof Error
                     ? error.message
                     : 'Не удалось удалить заявку',
@@ -151,8 +163,6 @@ export function RequestsPage() {
                     ↻ Обновить
                 </button>
             </header>
-
-            {error && <div className="requests-page__error">{error}</div>}
 
             <div className="requests-filters">
                 <button
@@ -196,14 +206,23 @@ export function RequestsPage() {
                 </button>
             </div>
 
-            {isLoading ? (
-                <div className="requests-page__loading">Загрузка заявок...</div>
+            {error ? (
+                <ErrorState message={error} onRetry={loadRequests} />
+            ) : isLoading ? (
+                <LoadingState message="Загрузка заявок..." />
             ) : requests.length === 0 ? (
-                <div className="requests-page__empty">
-                    <h2>Заявок пока нет</h2>
-
-                    <p>Здесь появятся заявки клиентов с сайта.</p>
-                </div>
+                <EmptyState
+                    title={
+                        filter === 'ALL'
+                            ? 'Заявок пока нет'
+                            : 'По этому фильтру заявок нет'
+                    }
+                    description={
+                        filter === 'ALL'
+                            ? 'Здесь появятся заявки клиентов с сайта.'
+                            : 'Попробуйте выбрать другой статус.'
+                    }
+                />
             ) : (
                 <div className="requests-table">
                     <div className="requests-table__head">

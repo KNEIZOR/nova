@@ -11,6 +11,7 @@ import type { Admin, LoginData } from '../types';
 
 interface AuthContextValue {
     admin: Admin | null;
+    user: Admin | null;
     isLoading: boolean;
     isAuthenticated: boolean;
     login: (data: LoginData) => Promise<void>;
@@ -62,6 +63,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         <AuthContext.Provider
             value={{
                 admin,
+                user: admin,
                 isLoading,
                 isAuthenticated: admin !== null,
                 login,
@@ -73,7 +75,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     );
 }
 
-export function useAuth() {
+export function useAuth(): AuthContextValue {
     const context = useContext(AuthContext);
 
     if (!context) {
