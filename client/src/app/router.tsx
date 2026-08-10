@@ -11,6 +11,7 @@ import { ProtectedRoute } from '../features/admin/components/ProtectedRoute/Prot
 import { AdminLayout } from '../features/admin/components/AdminLayout/AdminLayout';
 import { DashboardPage } from '../features/admin/pages/DashboardPage/DashboardPage';
 import { ServicesPage } from '../features/admin/pages/ServicesPage/ServicesPage';
+import { ProjectsPage as AdminProjectsPage } from '../features/admin/pages/ProjectsPage/ProjectsPage';
 
 export const router = createBrowserRouter([
     {
@@ -54,7 +55,7 @@ export const router = createBrowserRouter([
 
                     {
                         path: '/admin/projects',
-                        element: <div>Projects</div>,
+                        element: <AdminProjectsPage />,
                     },
 
                     {
