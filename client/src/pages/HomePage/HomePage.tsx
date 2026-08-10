@@ -1,4 +1,5 @@
 import { ServicesSection } from '../../features/services/components/ServicesSection/ServicesSection';
+import { ProjectsSection } from '../../features/projects/components/ProjectsSection/ProjectsSection';
 
 import './HomePage.scss';
 
@@ -40,6 +41,8 @@ export function HomePage() {
             </section>
 
             <ServicesSection />
+
+            <ProjectsSection />
         </div>
     );
 }

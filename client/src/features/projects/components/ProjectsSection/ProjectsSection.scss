@@ -1,0 +1,96 @@
+@use '../../../../styles/variables' as *;
+
+.projects {
+    padding: 140px 0;
+
+    background: #ebe8e2;
+
+    &__container {
+        max-width: $container-width;
+
+        margin: 0 auto;
+        padding: 0 32px;
+    }
+
+    &__header {
+        display: grid;
+        grid-template-columns: 1fr 0.6fr;
+        gap: 80px;
+
+        margin-bottom: 80px;
+
+        align-items: end;
+
+        h2 {
+            margin: 20px 0 0;
+
+            font-size: clamp(42px, 5vw, 72px);
+            line-height: 1;
+            font-weight: 500;
+            letter-spacing: -0.04em;
+        }
+
+        > p {
+            max-width: 420px;
+
+            margin: 0;
+
+            color: $color-muted;
+
+            font-size: 17px;
+            line-height: 1.7;
+        }
+    }
+
+    &__eyebrow {
+        color: $color-accent;
+
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 70px 32px;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: center;
+
+        margin-top: 80px;
+    }
+
+    &__button {
+        padding: 17px 28px;
+
+        background: $color-dark;
+        color: $color-white;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition:
+            background $transition,
+            transform $transition;
+
+        &:hover {
+            background: $color-accent;
+            transform: translateY(-2px);
+        }
+    }
+
+    &__state {
+        padding: 80px 0;
+
+        text-align: center;
+
+        color: $color-muted;
+    }
+
+    &__state--error {
+        color: #a33;
+    }
+}
