@@ -1,3 +1,5 @@
+import { ServicesSection } from '../../features/services/components/ServicesSection/ServicesSection';
+
 import './HomePage.scss';
 
 export function HomePage() {
@@ -36,6 +38,8 @@ export function HomePage() {
                     </div>
                 </div>
             </section>
+
+            <ServicesSection />
         </div>
     );
 }
