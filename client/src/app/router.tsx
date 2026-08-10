@@ -10,6 +10,7 @@ import { LoginPage } from '../features/auth/pages/LoginPage/LoginPage';
 import { ProtectedRoute } from '../features/admin/components/ProtectedRoute/ProtectedRoute';
 import { AdminLayout } from '../features/admin/components/AdminLayout/AdminLayout';
 import { DashboardPage } from '../features/admin/pages/DashboardPage/DashboardPage';
+import { ServicesPage } from '../features/admin/pages/ServicesPage/ServicesPage';
 
 export const router = createBrowserRouter([
     {
@@ -46,10 +47,9 @@ export const router = createBrowserRouter([
                         element: <DashboardPage />,
                     },
 
-                    // CRUD добавим сюда следующим этапом
                     {
                         path: '/admin/services',
-                        element: <div>Services</div>,
+                        element: <ServicesPage />,
                     },
 
                     {
