@@ -37,3 +37,27 @@
         gap: 80px 32px;
     }
 }
+
+@media (max-width: 600px) {
+    .projects-page {
+        padding: 70px 0 90px;
+
+        &__container {
+            padding: 0 20px;
+        }
+
+        &__header {
+            margin-bottom: 60px;
+
+            h1 {
+                font-size: clamp(46px, 13vw, 64px);
+            }
+        }
+
+        &__grid {
+            grid-template-columns: 1fr;
+
+            gap: 50px;
+        }
+    }
+}

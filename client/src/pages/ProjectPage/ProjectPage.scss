@@ -95,3 +95,53 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    .project-page {
+        padding: 70px 0 90px;
+
+        &__container {
+            padding: 0 20px;
+        }
+
+        &__header {
+            margin-bottom: 50px;
+
+            > span {
+                margin-top: 40px;
+            }
+
+            h1 {
+                margin: 16px 0 24px;
+
+                font-size: clamp(48px, 14vw, 68px);
+            }
+        }
+
+        &__meta {
+            gap: 20px;
+        }
+
+        &__description {
+            margin-bottom: 50px;
+
+            p {
+                font-size: 17px;
+                line-height: 1.6;
+            }
+        }
+
+        &__gallery {
+            grid-template-columns: 1fr;
+
+            gap: 12px;
+        }
+
+        &__gallery-item,
+        &__gallery-item--large {
+            grid-column: auto;
+
+            height: 420px;
+        }
+    }
+}

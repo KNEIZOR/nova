@@ -1,9 +1,10 @@
 @use '../../../../styles/variables' as *;
 
-.projects {
+.reviews {
     padding: 140px 0;
 
-    background: #ebe8e2;
+    background: $color-dark;
+    color: $color-white;
 
     &__container {
         max-width: $container-width;
@@ -35,7 +36,7 @@
 
             margin: 0;
 
-            color: $color-muted;
+            color: rgba(255, 255, 255, 0.55);
 
             font-size: 17px;
             line-height: 1.7;
@@ -43,7 +44,7 @@
     }
 
     &__eyebrow {
-        color: $color-accent;
+        color: #c7835f;
 
         font-size: 12px;
         font-weight: 700;
@@ -52,34 +53,8 @@
 
     &__grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 70px 32px;
-    }
-
-    &__footer {
-        display: flex;
-        justify-content: center;
-
-        margin-top: 80px;
-    }
-
-    &__button {
-        padding: 17px 28px;
-
-        background: $color-dark;
-        color: $color-white;
-
-        font-size: 14px;
-        font-weight: 600;
-
-        transition:
-            background $transition,
-            transform $transition;
-
-        &:hover {
-            background: $color-accent;
-            transform: translateY(-2px);
-        }
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
 
     &__state {
@@ -87,26 +62,30 @@
 
         text-align: center;
 
-        color: $color-muted;
+        color: rgba(255, 255, 255, 0.5);
     }
 
     &__state--error {
-        color: #a33;
+        color: #e58b8b;
     }
 }
 
 @media (max-width: 900px) {
-    .projects {
+    .reviews {
         &__header {
             grid-template-columns: 1fr;
 
             gap: 30px;
         }
+
+        &__grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 }
 
 @media (max-width: 600px) {
-    .projects {
+    .reviews {
         padding: 90px 0;
 
         &__container {
@@ -127,18 +106,6 @@
 
         &__grid {
             grid-template-columns: 1fr;
-
-            gap: 50px;
-        }
-
-        &__footer {
-            margin-top: 50px;
-        }
-
-        &__button {
-            width: 100%;
-
-            text-align: center;
         }
     }
 }

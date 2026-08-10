@@ -48,3 +48,118 @@
         font-weight: 600;
     }
 }
+
+@media (max-width: 768px) {
+    .header {
+        &__container {
+            min-height: 68px;
+            padding: 18px 20px;
+        }
+
+        &__logo {
+            position: relative;
+            z-index: 102;
+        }
+
+        &__phone {
+            display: none;
+        }
+
+        &__nav {
+            position: fixed;
+            inset: 0;
+            z-index: 101;
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+
+            gap: 28px;
+
+            padding: 80px 24px 40px;
+
+            background: $color-bg;
+
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+
+            transition:
+                opacity 0.3s ease,
+                visibility 0.3s ease,
+                transform 0.3s ease;
+
+            a {
+                font-size: 30px;
+                font-weight: 500;
+            }
+
+            &--open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+
+        &__mobile-phone {
+            margin-top: 20px;
+
+            color: $color-accent !important;
+
+            font-size: 16px !important;
+        }
+
+        &__menu-button {
+            position: relative;
+            z-index: 102;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+
+            width: 42px;
+            height: 42px;
+
+            padding: 0;
+
+            border: 0;
+            background: transparent;
+
+            cursor: pointer;
+
+            span {
+                display: block;
+
+                width: 24px;
+                height: 1px;
+
+                margin-left: auto;
+
+                background: $color-dark;
+
+                transition:
+                    transform 0.3s ease,
+                    opacity 0.3s ease;
+            }
+
+            &--open {
+                span:first-child {
+                    transform: translateY(3.5px) rotate(45deg);
+                }
+
+                span:last-child {
+                    transform: translateY(-3.5px) rotate(-45deg);
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 769px) {
+    .header__menu-button,
+    .header__mobile-phone {
+        display: none;
+    }
+}

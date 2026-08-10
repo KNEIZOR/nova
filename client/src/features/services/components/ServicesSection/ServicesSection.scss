@@ -65,3 +65,45 @@
         color: #a33;
     }
 }
+
+@media (max-width: 900px) {
+    .services {
+        &__header {
+            grid-template-columns: 1fr;
+
+            gap: 30px;
+        }
+
+        &__grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .services {
+        padding: 90px 0;
+
+        &__container {
+            padding: 0 20px;
+        }
+
+        &__header {
+            margin-bottom: 50px;
+
+            h2 {
+                font-size: clamp(40px, 12vw, 56px);
+            }
+
+            > p {
+                font-size: 15px;
+            }
+        }
+
+        &__grid {
+            grid-template-columns: 1fr;
+
+            gap: 50px;
+        }
+    }
+}

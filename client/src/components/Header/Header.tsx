@@ -1,28 +1,68 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Header.scss';
 
 export function Header() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    };
+
     return (
         <header className="header">
             <div className="header__container">
-                <Link to="/" className="header__logo">
+                <Link to="/" className="header__logo" onClick={closeMenu}>
                     FORMA
                 </Link>
 
-                <nav className="header__nav">
-                    <a href="#services">Услуги</a>
+                <nav
+                    className={`header__nav ${
+                        isMenuOpen ? 'header__nav--open' : ''
+                    }`}
+                >
+                    <a href="/#services" onClick={closeMenu}>
+                        Услуги
+                    </a>
 
-                    <a href="#projects">Проекты</a>
+                    <a href="/#projects" onClick={closeMenu}>
+                        Проекты
+                    </a>
 
-                    <a href="#reviews">Отзывы</a>
+                    <a href="/#reviews" onClick={closeMenu}>
+                        Отзывы
+                    </a>
 
-                    <a href="#contact">Контакты</a>
+                    <a href="/#contact" onClick={closeMenu}>
+                        Контакты
+                    </a>
+
+                    <a
+                        href="tel:+70000000000"
+                        className="header__mobile-phone"
+                        onClick={closeMenu}
+                    >
+                        +7 (000) 000-00-00
+                    </a>
                 </nav>
 
                 <a href="tel:+70000000000" className="header__phone">
                     +7 (000) 000-00-00
                 </a>
+
+                <button
+                    type="button"
+                    className={`header__menu-button ${
+                        isMenuOpen ? 'header__menu-button--open' : ''
+                    }`}
+                    aria-label={isMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+                    aria-expanded={isMenuOpen}
+                    onClick={() => setIsMenuOpen((current) => !current)}
+                >
+                    <span />
+                    <span />
+                </button>
             </div>
         </header>
     );

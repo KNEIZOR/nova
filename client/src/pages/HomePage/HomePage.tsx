@@ -2,6 +2,7 @@ import { ServicesSection } from '../../features/services/components/ServicesSect
 import { ProjectsSection } from '../../features/projects/components/ProjectsSection/ProjectsSection';
 
 import './HomePage.scss';
+import { ReviewsSection } from '../../features/reviews/components/ReviewsSection/ReviewsSection';
 
 export function HomePage() {
     return (
@@ -43,6 +44,8 @@ export function HomePage() {
             <ServicesSection />
 
             <ProjectsSection />
+
+            <ReviewsSection />
         </div>
     );
 }

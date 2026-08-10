@@ -81,3 +81,23 @@
         letter-spacing: 0.08em;
     }
 }
+
+@media (max-width: 600px) {
+    .project-card {
+        &__image {
+            height: 420px;
+        }
+
+        &__content {
+            flex-direction: column;
+
+            gap: 12px;
+
+            padding: 18px 0;
+
+            h3 {
+                font-size: 22px;
+            }
+        }
+    }
+}
