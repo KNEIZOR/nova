@@ -3,6 +3,7 @@ import { ProjectsSection } from '../../features/projects/components/ProjectsSect
 
 import './HomePage.scss';
 import { ReviewsSection } from '../../features/reviews/components/ReviewsSection/ReviewsSection';
+import { ContactSection } from '../../features/requests/components/ContactSection/ContactSection';
 
 export function HomePage() {
     return (
@@ -46,6 +47,8 @@ export function HomePage() {
             <ProjectsSection />
 
             <ReviewsSection />
+
+            <ContactSection />
         </div>
     );
 }
