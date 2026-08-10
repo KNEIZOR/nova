@@ -1,0 +1,50 @@
+@use '../../styles/variables' as *;
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: rgba(245, 243, 239, 0.9);
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid $color-border;
+
+    &__container {
+        max-width: $container-width;
+        margin: 0 auto;
+        padding: 22px 32px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+    }
+
+    &__logo {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+    }
+
+    &__nav {
+        display: flex;
+        gap: 32px;
+
+        a {
+            color: $color-dark;
+            font-size: 14px;
+
+            transition: color $transition;
+
+            &:hover {
+                color: $color-accent;
+            }
+        }
+    }
+
+    &__phone {
+        font-size: 14px;
+        font-weight: 600;
+    }
+}

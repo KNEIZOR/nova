@@ -1,0 +1,97 @@
+@use '../../styles/variables' as *;
+
+.hero {
+    min-height: calc(100vh - 73px);
+
+    display: flex;
+    align-items: center;
+
+    &__container {
+        width: 100%;
+        max-width: $container-width;
+
+        margin: 0 auto;
+        padding: 80px 32px;
+
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 80px;
+        align-items: center;
+    }
+
+    &__content {
+        max-width: 600px;
+    }
+
+    &__eyebrow {
+        display: block;
+
+        margin-bottom: 28px;
+
+        color: $color-accent;
+
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+    }
+
+    &__title {
+        margin: 0 0 32px;
+
+        font-size: clamp(52px, 6vw, 92px);
+        line-height: 0.95;
+        font-weight: 500;
+        letter-spacing: -0.04em;
+    }
+
+    &__description {
+        max-width: 480px;
+
+        margin: 0 0 40px;
+
+        color: $color-muted;
+
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    &__button {
+        display: inline-flex;
+        align-items: center;
+
+        padding: 18px 30px;
+
+        background: $color-dark;
+        color: $color-white;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition:
+            background $transition,
+            transform $transition;
+
+        &:hover {
+            background: $color-accent;
+            transform: translateY(-2px);
+        }
+    }
+
+    &__image {
+        height: 700px;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform 0.8s ease;
+        }
+
+        &:hover img {
+            transform: scale(1.03);
+        }
+    }
+}

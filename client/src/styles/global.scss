@@ -1,0 +1,20 @@
+@use './reset';
+@use './variables' as *;
+
+:root {
+    font-family: $font-main;
+    color: $color-dark;
+    background: $color-bg;
+}
+
+body {
+    min-width: 320px;
+    margin: 0;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
