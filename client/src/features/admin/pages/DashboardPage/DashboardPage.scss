@@ -1,0 +1,79 @@
+@use '../../../../styles/variables' as *;
+
+.dashboard-page {
+    &__header {
+        margin-bottom: 50px;
+
+        span {
+            color: $color-accent;
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+        }
+
+        h1 {
+            margin: 15px 0 0;
+
+            font-size: clamp(40px, 5vw, 64px);
+            line-height: 1;
+            font-weight: 500;
+            letter-spacing: -0.04em;
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 20px;
+    }
+}
+
+.dashboard-card {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    min-height: 180px;
+
+    padding: 25px;
+
+    background: $color-white;
+
+    border: 1px solid $color-border;
+
+    span {
+        color: $color-muted;
+
+        font-size: 13px;
+    }
+
+    strong {
+        font-size: 48px;
+        font-weight: 500;
+        letter-spacing: -0.04em;
+    }
+
+    &--accent {
+        background: $color-dark;
+        color: $color-white;
+
+        span {
+            color: rgba(255, 255, 255, 0.5);
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .dashboard-page__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-page__grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,162 @@
+@use '../../../../styles/variables' as *;
+
+.admin-layout {
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-columns: 260px 1fr;
+
+    background: #f4f2ee;
+
+    &__sidebar {
+        position: sticky;
+        top: 0;
+
+        height: 100vh;
+
+        display: flex;
+        flex-direction: column;
+
+        padding: 30px 24px;
+
+        background: $color-dark;
+        color: $color-white;
+    }
+
+    &__logo {
+        display: flex;
+        flex-direction: column;
+
+        margin-bottom: 70px;
+
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+
+        span {
+            margin-top: 5px;
+
+            color: rgba(255, 255, 255, 0.4);
+
+            font-size: 9px;
+            letter-spacing: 0.2em;
+        }
+    }
+
+    &__nav {
+        display: flex;
+        flex-direction: column;
+
+        gap: 5px;
+
+        a {
+            padding: 13px 14px;
+
+            color: rgba(255, 255, 255, 0.55);
+
+            font-size: 14px;
+
+            transition:
+                color $transition,
+                background $transition;
+
+            &:hover {
+                color: $color-white;
+            }
+
+            &.active {
+                background: rgba(255, 255, 255, 0.08);
+
+                color: $color-white;
+            }
+        }
+    }
+
+    &__bottom {
+        display: flex;
+        flex-direction: column;
+
+        gap: 15px;
+
+        margin-top: auto;
+
+        padding-top: 25px;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+        span {
+            overflow: hidden;
+
+            color: rgba(255, 255, 255, 0.45);
+
+            font-size: 11px;
+            text-overflow: ellipsis;
+        }
+
+        button {
+            width: fit-content;
+
+            padding: 0;
+
+            border: 0;
+
+            background: transparent;
+
+            color: rgba(255, 255, 255, 0.7);
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            &:hover {
+                color: $color-white;
+            }
+        }
+    }
+
+    &__main {
+        min-width: 0;
+
+        padding: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-layout {
+        display: block;
+
+        &__sidebar {
+            position: static;
+
+            height: auto;
+
+            padding: 20px;
+
+            &__nav {
+                flex-direction: row;
+            }
+        }
+
+        &__logo {
+            margin-bottom: 25px;
+        }
+
+        &__nav {
+            flex-direction: row;
+
+            overflow-x: auto;
+
+            a {
+                flex-shrink: 0;
+            }
+        }
+
+        &__bottom {
+            margin-top: 25px;
+        }
+
+        &__main {
+            padding: 25px 20px;
+        }
+    }
+}
