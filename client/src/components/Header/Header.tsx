@@ -37,14 +37,6 @@ export function Header() {
                     <a href="/#contact" onClick={closeMenu}>
                         Контакты
                     </a>
-
-                    <a
-                        href="tel:+70000000000"
-                        className="header__mobile-phone"
-                        onClick={closeMenu}
-                    >
-                        +7 (000) 000-00-00
-                    </a>
                 </nav>
 
                 <a href="tel:+70000000000" className="header__phone">

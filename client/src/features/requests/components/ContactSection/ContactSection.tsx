@@ -22,10 +22,6 @@ export function ContactSection() {
                             Расскажите о вашем проекте — мы свяжемся с вами и
                             обсудим детали.
                         </p>
-
-                        <a href="tel:+70000000000">+7 (000) 000-00-00</a>
-
-                        <a href="mailto:hello@forma.ru">hello@forma.ru</a>
                     </div>
                 </div>
 
