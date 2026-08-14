@@ -39,10 +39,6 @@ export function Header() {
                     </a>
                 </nav>
 
-                <a href="tel:+70000000000" className="header__phone">
-                    +7 (000) 000-00-00
-                </a>
-
                 <button
                     type="button"
                     className={`header__menu-button ${
