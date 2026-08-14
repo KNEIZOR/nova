@@ -1,9 +1,18 @@
+import { lazy, Suspense } from 'react';
+
 import { ServicesSection } from '../../features/services/components/ServicesSection/ServicesSection';
 import { ProjectsSection } from '../../features/projects/components/ProjectsSection/ProjectsSection';
+import { ReviewsSection } from '../../features/reviews/components/ReviewsSection/ReviewsSection';
 
 import './HomePage.scss';
-import { ReviewsSection } from '../../features/reviews/components/ReviewsSection/ReviewsSection';
-import { ContactSection } from '../../features/requests/components/ContactSection/ContactSection';
+
+const ContactSection = lazy(() =>
+    import('../../features/requests/components/ContactSection/ContactSection').then(
+        ({ ContactSection }) => ({
+            default: ContactSection,
+        }),
+    ),
+);
 
 export function HomePage() {
     return (
@@ -35,8 +44,10 @@ export function HomePage() {
 
                     <div className="hero__image">
                         <img
-                            src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85"
+                            src="/images/hero.avif"
                             alt="Современный интерьер"
+                            fetchPriority="high"
+                            decoding="async"
                         />
                     </div>
                 </div>
@@ -48,7 +59,9 @@ export function HomePage() {
 
             <ReviewsSection />
 
-            <ContactSection />
+            <Suspense fallback={null}>
+                <ContactSection />
+            </Suspense>
         </div>
     );
 }

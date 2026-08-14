@@ -14,7 +14,7 @@ export function Header() {
         <header className="header">
             <div className="header__container">
                 <Link to="/" className="header__logo" onClick={closeMenu}>
-                    FORMA
+                    NOVA
                 </Link>
 
                 <nav
