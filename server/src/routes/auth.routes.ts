@@ -11,12 +11,15 @@ const router = Router();
 router.post("/login", async (req, res, next) => {
   try {
     const data = loginSchema.parse(req.body);
+
     const admin = await prisma.admin.findUnique({
       where: { email: data.email }
     });
 
     if (!admin || !(await bcrypt.compare(data.password, admin.passwordHash))) {
-      res.status(401).json({ message: "Неверный email или пароль" });
+      res.status(401).json({
+        message: "Неверный email или пароль"
+      });
       return;
     }
 
@@ -51,3 +54,24 @@ router.post("/logout", (_req, res) => {
 
   res.status(204).send();
 });
+
+router.get("/me", requireAuth, async (req, res) => {
+  const admin = await prisma.admin.findUnique({
+    where: { id: req.adminId },
+    select: {
+      id: true,
+      email: true
+    }
+  });
+
+  if (!admin) {
+    res.status(401).json({
+      message: "Администратор не найден"
+    });
+    return;
+  }
+
+  res.json(admin);
+});
+
+export default router;
