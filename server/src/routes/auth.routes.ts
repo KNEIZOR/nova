@@ -11,19 +11,25 @@ const router = Router();
 router.post("/login", async (req, res, next) => {
   try {
     const data = loginSchema.parse(req.body);
-    const admin = await prisma.admin.findUnique({ where: { email: data.email } });
+    const admin = await prisma.admin.findUnique({
+      where: { email: data.email }
+    });
 
     if (!admin || !(await bcrypt.compare(data.password, admin.passwordHash))) {
       res.status(401).json({ message: "Неверный email или пароль" });
       return;
     }
 
-    const accessToken = jwt.sign({ adminId: admin.id }, env.JWT_SECRET, { expiresIn: "2h" });
+    const accessToken = jwt.sign(
+      { adminId: admin.id },
+      env.JWT_SECRET,
+      { expiresIn: "2h" }
+    );
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: env.NODE_ENV === "production",
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000
     });
 
@@ -37,22 +43,11 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post("/logout", (_req, res) => {
-  res.clearCookie("accessToken");
-  res.status(204).send();
-});
-
-router.get("/me", requireAuth, async (req, res) => {
-  const admin = await prisma.admin.findUnique({
-    where: { id: req.adminId },
-    select: { id: true, email: true }
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none"
   });
 
-  if (!admin) {
-    res.status(401).json({ message: "Администратор не найден" });
-    return;
-  }
-
-  res.json(admin);
+  res.status(204).send();
 });
-
-export default router;
